@@ -1,177 +1,181 @@
-class Node {
-    constructor(val, priority) {
-        this.val = val;
-        this.priority = priority;
+class No {
+    constructor(valor, prioridade) {
+        this.valor = valor;
+        this.prioridade = prioridade;
     }
 }
 
-class PriorityQueue {
+class FilaDePrioridade {
     constructor() {
-        this.values = [];
+        this.valores = [];
     }
-    enqueue(val, priority) {
-        let newNode = new Node(val, priority);
-        this.values.push(newNode);
-        this.bubbleUp();
+
+    enfileirar(valor, prioridade) {
+        const novoNo = new No(valor, prioridade);
+        this.valores.push(novoNo);
+        this.subirBolha();
     }
-    bubbleUp() {
-        let idx = this.values.length - 1;
-        const element = this.values[idx];
-        while (idx > 0) {
-            let parentIdx = Math.floor((idx - 1) / 2);
-            let parent = this.values[parentIdx];
-            if (element.priority >= parent.priority) break;
-            this.values[parentIdx] = element;
-            this.values[idx] = parent;
-            idx = parentIdx;
+
+    subirBolha() {
+        let indice = this.valores.length - 1;
+        const elemento = this.valores[indice];
+        while (indice > 0) {
+            let indicePai = Math.floor((indice - 1) / 2);
+            let pai = this.valores[indicePai];
+            if (elemento.prioridade >= pai.prioridade) break;
+            this.valores[indicePai] = elemento;
+            this.valores[indice] = pai;
+            indice = indicePai;
         }
     }
-    dequeue() {
-        const min = this.values[0];
-        const end = this.values.pop();
-        if (this.values.length > 0) {
-            this.values[0] = end;
-            this.sinkDown();
+
+    desenfileirar() {
+        const menor = this.valores[0];
+        const fim = this.valores.pop();
+        if (this.valores.length > 0) {
+            this.valores[0] = fim;
+            this.afundar();
         }
-        return min;
+        return menor;
     }
-    sinkDown() {
-        let idx = 0;
-        const length = this.values.length;
-        const element = this.values[0];
+
+    afundar() {
+        let indice = 0;
+        const comprimento = this.valores.length;
+        const elemento = this.valores[0];
+
         while (true) {
-            let leftChildIdx = 2 * idx + 1;
-            let rightChildIdx = 2 * idx + 2;
-            let leftChild, rightChild;
-            let swap = null;
+            let indiceFilhoEsquerdo = 2 * indice + 1;
+            let indiceFilhoDireito = 2 * indice + 2;
+            let filhoEsquerdo, filhoDireito;
+            let troca = null;
 
-            if (leftChildIdx < length) {
-                leftChild = this.values[leftChildIdx];
-                if (leftChild.priority < element.priority) {
-                    swap = leftChildIdx;
+            if (indiceFilhoEsquerdo < comprimento) {
+                filhoEsquerdo = this.valores[indiceFilhoEsquerdo];
+                if (filhoEsquerdo.prioridade < elemento.prioridade) {
+                    troca = indiceFilhoEsquerdo;
                 }
             }
-            if (rightChildIdx < length) {
-                rightChild = this.values[rightChildIdx];
-                if (
-                    (swap === null && rightChild.priority < element.priority) ||
-                    (swap !== null && rightChild.priority < leftChild.priority)
-                ) {
-                    swap = rightChildIdx;
+            if (indiceFilhoDireito < comprimento) {
+                filhoDireito = this.valores[indiceFilhoDireito];
+                if (filhoDireito.prioridade < (troca === null ? elemento.prioridade : filhoEsquerdo.prioridade)) {
+                    troca = indiceFilhoDireito;
                 }
             }
-            if (swap === null) break;
-            this.values[idx] = this.values[swap];
-            this.values[swap] = element;
-            idx = swap;
+
+            if (troca === null) break;
+            this.valores[indice] = this.valores[troca];
+            this.valores[troca] = elemento;
+            indice = troca;
         }
     }
 }
 
-class WeightedGraph {
+class Grafo {
     constructor() {
-        this.adjacencyList = {};
+        this.listaAdjacencia = {};
     }
-    addVertex(vertex) {
-        if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
-    }
-    addEdge(vertex1, vertex2, weight) {
-        this.adjacencyList[vertex1].push({ node: vertex2, weight });
-        this.adjacencyList[vertex2].push({ node: vertex1, weight });
-    }
-    Dijkstra(start, finish) {
-        const nodes = new PriorityQueue();
-        const distances = {};
-        const previous = {};
-        let path = [];
-        let smallest;
 
-        for (let vertex in this.adjacencyList) {
-            if (vertex === start) {
-                distances[vertex] = 0;
-                nodes.enqueue(vertex, 0);
-            } else {
-                distances[vertex] = Infinity;
-                nodes.enqueue(vertex, Infinity);
-            }
-            previous[vertex] = null;
+    adicionarVertice(vertice) {
+        if (!this.listaAdjacencia[vertice]) this.listaAdjacencia[vertice] = [];
+    }
+
+    adicionarAresta(vertice1, vertice2, peso) {
+        this.listaAdjacencia[vertice1].push({ no: vertice2, peso });
+        this.listaAdjacencia[vertice2].push({ no: vertice1, peso });
+    }
+
+    dijkstra(inicio, fim) {
+        const nos = new FilaDePrioridade();
+        const distancias = {};
+        const anteriores = {};
+        const caminho = [];
+        let menor;
+
+        for (let vertice in this.listaAdjacencia) {
+            distancias[vertice] = vertice === inicio ? 0 : Infinity;
+            nos.enfileirar(vertice, distancias[vertice]);
+            anteriores[vertice] = null;
         }
 
-        while (nodes.values.length) {
-            smallest = nodes.dequeue().val;
-            if (smallest === finish) {
-                while (previous[smallest]) {
-                    path.push(smallest);
-                    smallest = previous[smallest];
+        while (nos.valores.length) {
+            menor = nos.desenfileirar().valor;
+            if (menor === fim) {
+                while (anteriores[menor]) {
+                    caminho.push(menor);
+                    menor = anteriores[menor];
                 }
                 break;
             }
-            if (smallest || distances[smallest] !== Infinity) {
-                for (let neighbor in this.adjacencyList[smallest]) {
-                    let nextNode = this.adjacencyList[smallest][neighbor];
-                    let candidate = distances[smallest] + nextNode.weight;
-                    let nextNeighbor = nextNode.node;
-                    if (candidate < distances[nextNeighbor]) {
-                        distances[nextNeighbor] = candidate;
-                        previous[nextNeighbor] = smallest;
-                        nodes.enqueue(nextNeighbor, candidate);
+
+            if (menor || distancias[menor] !== Infinity) {
+                for (let vizinho of this.listaAdjacencia[menor]) {
+                    let candidato = distancias[menor] + vizinho.peso;
+                    let proximoVizinho = vizinho.no;
+
+                    if (candidato < distancias[proximoVizinho]) {
+                        distancias[proximoVizinho] = candidato;
+                        anteriores[proximoVizinho] = menor;
+                        nos.enfileirar(proximoVizinho, candidato);
                     }
                 }
             }
         }
-        return { path: path.concat(smallest).reverse(), cost: distances[finish] };
+
+        return { caminho: caminho.concat(menor).reverse(), custo: distancias[fim] };
     }
 }
 
-var graph = new WeightedGraph();
-graph.addVertex("ITU");
-graph.addVertex("RSL");
-graph.addVertex("VID");
-graph.addVertex("RDE");
-graph.addVertex("RCA");
-graph.addVertex("STA");
-graph.addVertex("AUR");
-graph.addVertex("PGE");
-graph.addVertex("TAI");
-graph.addVertex("POU");
-graph.addVertex("IMB");
-graph.addVertex("CHA");
-graph.addVertex("LAU");
-graph.addVertex("SAL");
-graph.addVertex("MIR");
+// Exemplo de uso:
+const grafo = new Grafo();
+grafo.adicionarVertice("ITU");
+grafo.adicionarVertice("RSL");
+grafo.adicionarVertice("VID");
+grafo.adicionarVertice("RDE");
+grafo.adicionarVertice("RCA");
+grafo.adicionarVertice("STA");
+grafo.adicionarVertice("AUR");
+grafo.adicionarVertice("PGE");
+grafo.adicionarVertice("TAI");
+grafo.adicionarVertice("POU");
+grafo.adicionarVertice("IMB");
+grafo.adicionarVertice("CHA");
+grafo.adicionarVertice("LAU");
+grafo.adicionarVertice("SAL");
+grafo.adicionarVertice("MIR");
 
-graph.addEdge("ITU", "RSL", 52);
-graph.addEdge("ITU", "AUR", 26);
-graph.addEdge("RSL", "VID", 87);
-graph.addEdge("RSL", "AUR", 42);
-graph.addEdge("RSL", "IMB", 114.4);
-graph.addEdge("RSL", "LAU", 39);
-graph.addEdge("VID", "PGE", 347.6);
-graph.addEdge("RDE", "RCA", 105);
-graph.addEdge("RDE", "PGE", 264);
-graph.addEdge("RDE", "TAI", 70);
-graph.addEdge("RCA", "STA", 25);
-graph.addEdge("RCA", "TAI", 81.4);
-graph.addEdge("STA", "TAI", 73.5);
-graph.addEdge("AUR", "IMB", 117);
-graph.addEdge("PGE", "TAI", 219);
-graph.addEdge("PGE", "CHA", 180.4);
-graph.addEdge("PGE", "SAL", 50);
-graph.addEdge("TAI", "POU", 158.4);
-graph.addEdge("TAI", "VAL", 43);
-graph.addEdge("POU", "SAL", 129);
-graph.addEdge("POU", "MIR", 51);
-graph.addEdge("CHA", "LAU", 286);
-graph.addEdge("LAU", "SAL", 62);
-graph.addEdge("SAL", "MIR", 144);
+grafo.adicionarAresta("ITU", "RSL", 52);
+grafo.adicionarAresta("ITU", "AUR", 26);
+grafo.adicionarAresta("RSL", "VID", 87);
+grafo.adicionarAresta("RSL", "AUR", 42);
+grafo.adicionarAresta("RSL", "IMB", 114.4);
+grafo.adicionarAresta("RSL", "LAU", 39);
+grafo.adicionarAresta("VID", "PGE", 347.6);
+grafo.adicionarAresta("RDE", "RCA", 105);
+grafo.adicionarAresta("RDE", "PGE", 264);
+grafo.adicionarAresta("RDE", "TAI", 70);
+grafo.adicionarAresta("RCA", "STA", 25);
+grafo.adicionarAresta("RCA", "TAI", 81.4);
+grafo.adicionarAresta("STA", "TAI", 73.5);
+grafo.adicionarAresta("AUR", "IMB", 117);
+grafo.adicionarAresta("PGE", "TAI", 219);
+grafo.adicionarAresta("PGE", "CHA", 180.4);
+grafo.adicionarAresta("PGE", "SAL", 50);
+grafo.adicionarAresta("TAI", "POU", 158.4);
+grafo.adicionarAresta("TAI", "VAL", 43);
+grafo.adicionarAresta("POU", "SAL", 129);
+grafo.adicionarAresta("POU", "MIR", 51);
+grafo.adicionarAresta("CHA", "LAU", 286);
+grafo.adicionarAresta("LAU", "SAL", 62);
+grafo.adicionarAresta("SAL", "MIR", 144);
 
-function findShortestPath() {
-    const origin = document.getElementById("origem").value;
-    const destination = document.getElementById("destino").value;
-    const result = graph.Dijkstra(origin, destination);
-    const path = result.path.join(" -> ");
-    const cost = result.cost;
+function menorCaminho() {
+    const origem = document.getElementById("origem").value;
+    const destino = document.getElementById("destino").value;
+    const resultado = grafo.dijkstra(origem, destino);
+    const caminho = resultado.caminho.join(" -> ");
+    const custo = resultado.custo;
 
-    const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = `<strong>Caminho mais curto:</strong> ${path}<br><strong>Custo total:</strong> ${cost}`;
+    const resultadoDiv = document.getElementById("resultado");
+    resultadoDiv.innerHTML = `<strong>Caminho mais curto:</strong> ${caminho}<br><strong>Custo total:</strong> ${custo}`;
 }
