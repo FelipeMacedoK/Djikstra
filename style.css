@@ -1,0 +1,36 @@
+body {
+    background-color: bisque;
+}
+div#principal {
+    justify-items: center;
+    width: 60%;
+    align-items: center;
+    border: solid gray 1px;
+    padding: 20px;
+    margin-left: 20%;
+}
+h1 {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    color: blue;
+}
+select {
+    text-align: center;
+    background-color: aqua;
+}
+label {
+    padding-left: 15%;
+}
+label:hover {
+    color: gray;
+}
+div#selecao {
+    justify-items: center;
+    width: 60%;
+    align-items: center;
+    border: solid gray 1px;
+    padding: 20px;
+    margin-left: 20%;
+}

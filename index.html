@@ -9,11 +9,50 @@
     <title>Djikstra</title>
 </head>
 <body>
-    <label>Origem: </label>
-    <input type="text" id="origem">
-    <label>Destino: </label>
-    <input type="text" id="destino">
-    <input type="button" value="Enviar" onclick="menorCaminho()">
+    <div id="principal">
+        <h1>Diagrama de Djikstra</h1>
+        <div id="selecao">
+            <label>Origem: </label>
+            <select id="origem" required>
+                <option value="">Selecione</option>
+                <option value="AUR">Aurora</option>
+                <option value="CHA">Chapadão do Lageado</option>
+                <option value="IMB">Imbuia</option>
+                <option value="ITU">Ituporanga</option>
+                <option value="LAU">Laurentino</option>
+                <option value="MIR">Mirim Doce</option>
+                <option value="POU">Pouso Redondo</option>
+                <option value="PGE">Presidente Getúlio</option>
+                <option value="RCA">Rio do Campo</option>
+                <option value="RDO">Rio do Oeste</option>
+                <option value="RSL">Rio do Sul</option>
+                <option value="SAL">Salete</option>
+                <option value="STA">Santa Terezinha</option>
+                <option value="TAI">Taió</option>
+                <option value="VID">Vidal Ramos</option>
+            </select>
+            <label>Destino: </label>
+            <select id="destino" required>
+                <option value="">Selecione</option>
+                <option value="AUR">Aurora</option>
+                <option value="CHA">Chapadão do Lageado</option>
+                <option value="IMB">Imbuia</option>
+                <option value="ITU">Ituporanga</option>
+                <option value="LAU">Laurentino</option>
+                <option value="MIR">Mirim Doce</option>
+                <option value="POU">Pouso Redondo</option>
+                <option value="PGE">Presidente Getúlio</option>
+                <option value="RCA">Rio do Campo</option>
+                <option value="RDO">Rio do Oeste</option>
+                <option value="RSL">Rio do Sul</option>
+                <option value="SAL">Salete</option>
+                <option value="STA">Santa Terezinha</option>
+                <option value="TAI">Taió</option>
+                <option value="VID">Vidal Ramos</option>
+            </select><br>
+            <input type="button" value="Enviar" onclick="menorCaminho()">
+        </div>
+    </div>
     <div id="resultado"></div>
 </body>
 </html>
