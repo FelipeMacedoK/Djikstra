@@ -3,56 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="script.js"></script>
+    <title>Diagrama de Dijkstra</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>Djikstra</title>
+    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
     <div id="principal">
-        <h1>Diagrama de Djikstra</h1>
+        <h1>Diagrama de Dijkstra</h1>
         <div id="selecao">
-            <label>Origem: </label>
+            <label for="origem">Origem:</label>
             <select id="origem" required>
                 <option value="">Selecione</option>
-                <option value="AUR">Aurora</option>
-                <option value="CHA">Chapadão do Lageado</option>
-                <option value="IMB">Imbuia</option>
-                <option value="ITU">Ituporanga</option>
-                <option value="LAU">Laurentino</option>
-                <option value="MIR">Mirim Doce</option>
-                <option value="POU">Pouso Redondo</option>
-                <option value="PGE">Presidente Getúlio</option>
-                <option value="RCA">Rio do Campo</option>
-                <option value="RDO">Rio do Oeste</option>
-                <option value="RSL">Rio do Sul</option>
-                <option value="SAL">Salete</option>
-                <option value="STA">Santa Terezinha</option>
-                <option value="TAI">Taió</option>
-                <option value="VID">Vidal Ramos</option>
+                <option value="Aurora">Aurora</option>
+                <option value="Chapadão do Lageado">Chapadão do Lageado</option>
+                <option value="Imbuia">Imbuia</option>
+                <option value="Ituporanga">Ituporanga</option>
+                <option value="Laurentino">Laurentino</option>
+                <option value="Mirim Doce">Mirim Doce</option>
+                <option value="Pouso Redondo">Pouso Redondo</option>
+                <option value="Presidente Getúlio">Presidente Getúlio</option>
+                <option value="Rio do Campo">Rio do Campo</option>
+                <option value="Rio do Oeste">Rio do Oeste</option>
+                <option value="Rio do Sul">Rio do Sul</option>
+                <option value="Salete">Salete</option>
+                <option value="Santa Terezinha">Santa Terezinha</option>
+                <option value="Taió">Taió</option>
+                <option value="Vidal Ramos">Vidal Ramos</option>
             </select>
-            <label>Destino: </label>
+            <label for="destino">Destino:</label>
             <select id="destino" required>
                 <option value="">Selecione</option>
-                <option value="AUR">Aurora</option>
-                <option value="CHA">Chapadão do Lageado</option>
-                <option value="IMB">Imbuia</option>
-                <option value="ITU">Ituporanga</option>
-                <option value="LAU">Laurentino</option>
-                <option value="MIR">Mirim Doce</option>
-                <option value="POU">Pouso Redondo</option>
-                <option value="PGE">Presidente Getúlio</option>
-                <option value="RCA">Rio do Campo</option>
-                <option value="RDO">Rio do Oeste</option>
-                <option value="RSL">Rio do Sul</option>
-                <option value="SAL">Salete</option>
-                <option value="STA">Santa Terezinha</option>
-                <option value="TAI">Taió</option>
-                <option value="VID">Vidal Ramos</option>
-            </select><br>
+                <option value="Aurora">Aurora</option>
+                <option value="Chapadão do Lageado">Chapadão do Lageado</option>
+                <option value="Imbuia">Imbuia</option>
+                <option value="Ituporanga">Ituporanga</option>
+                <option value="Laurentino">Laurentino</option>
+                <option value="Mirim Doce">Mirim Doce</option>
+                <option value="Pouso Redondo">Pouso Redondo</option>
+                <option value="Presidente Getúlio">Presidente Getúlio</option>
+                <option value="Rio do Campo">Rio do Campo</option>
+                <option value="Rio do Oeste">Rio do Oeste</option>
+                <option value="Rio do Sul">Rio do Sul</option>
+                <option value="Salete">Salete</option>
+                <option value="Santa Terezinha">Santa Terezinha</option>
+                <option value="Taió">Taió</option>
+                <option value="Vidal Ramos">Vidal Ramos</option>
+            </select>
             <input type="button" value="Enviar" onclick="menorCaminho()">
         </div>
     </div>
-    <div id="resultado"></div>
+    <div id="resultado">Informe a origem e o destino acima</div>
 </body>
 </html>
