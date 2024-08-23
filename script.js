@@ -83,6 +83,8 @@ class Grafo {
     adicionarAresta(vertice1, vertice2, peso) {
         this.listaAdjacencia[vertice1].push({ no: vertice2, peso });
         this.listaAdjacencia[vertice2].push({ no: vertice1, peso });
+        this.listaAdjacencia[vertice1].push({ no: vertice1, peso });
+        this.listaAdjacencia[vertice2].push({ no: vertice2, peso });
     }
 
     dijkstra(inicio, fim) {
@@ -145,53 +147,29 @@ grafo.adicionarVertice("SAL");
 grafo.adicionarVertice("MIR");
 
 grafo.adicionarAresta("ITU", "RSL", 52);
-grafo.adicionarAresta("RSL", "ITU", 52);
 grafo.adicionarAresta("ITU", "AUR", 26);
-grafo.adicionarAresta("AUR", "ITU", 26);
 grafo.adicionarAresta("RSL", "VID", 87);
-grafo.adicionarAresta("VID", "RSL", 87);
 grafo.adicionarAresta("RSL", "AUR", 42);
-grafo.adicionarAresta("AUR", "RSL", 42);
 grafo.adicionarAresta("RSL", "IMB", 114.4);
-grafo.adicionarAresta("IMB", "RSL", 114.4);
 grafo.adicionarAresta("RSL", "LAU", 39);
-grafo.adicionarAresta("LAU", "RSL", 39);
 grafo.adicionarAresta("VID", "PGE", 347.6);
-grafo.adicionarAresta("PGE", "VID", 347.6);
 grafo.adicionarAresta("RDO", "RCA", 105);
-grafo.adicionarAresta("RCA", "RDO", 105);
 grafo.adicionarAresta("RDO", "PGE", 264);
-grafo.adicionarAresta("PGE", "RDO", 264);
 grafo.adicionarAresta("RDO", "TAI", 70);
-grafo.adicionarAresta("TAI", "RDO", 70);
 grafo.adicionarAresta("RCA", "STA", 25);
-grafo.adicionarAresta("STA", "RCA", 25);
 grafo.adicionarAresta("RCA", "TAI", 81.4);
-grafo.adicionarAresta("TAI", "RCA", 81.4);
 grafo.adicionarAresta("STA", "TAI", 73.5);
-grafo.adicionarAresta("TAI", "STA", 73.5);
 grafo.adicionarAresta("AUR", "IMB", 117);
-grafo.adicionarAresta("IMB", "AUR", 117);
 grafo.adicionarAresta("PGE", "TAI", 219);
-grafo.adicionarAresta("TAI", "PGE", 219);
 grafo.adicionarAresta("PGE", "CHA", 180.4);
-grafo.adicionarAresta("CHA", "PGE", 180.4);
 grafo.adicionarAresta("PGE", "SAL", 50);
-grafo.adicionarAresta("SAL", "PGE", 50);
 grafo.adicionarAresta("TAI", "POU", 158.4);
-grafo.adicionarAresta("POU", "TAI", 158.4);
 grafo.adicionarAresta("TAI", "LAU", 43);
-grafo.adicionarAresta("LAU", "TAI", 43);
 grafo.adicionarAresta("POU", "SAL", 129);
-grafo.adicionarAresta("SAL", "POU", 129);
 grafo.adicionarAresta("POU", "MIR", 51);
-grafo.adicionarAresta("MIR", "POU", 51);
 grafo.adicionarAresta("CHA", "LAU", 286);
-grafo.adicionarAresta("LAU", "CHA", 286);
 grafo.adicionarAresta("LAU", "SAL", 62);
-grafo.adicionarAresta("SAL", "LAU", 62);
 grafo.adicionarAresta("SAL", "MIR", 144);
-grafo.adicionarAresta("MIR", "SAL", 144);
 
 function menorCaminho() {
     const origem = document.getElementById("origem").value;
