@@ -1,36 +1,81 @@
 body {
-    background-color: bisque;
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
-div#principal {
-    justify-items: center;
-    width: 60%;
-    align-items: center;
-    border: solid gray 1px;
-    padding: 20px;
-    margin-left: 20%;
+
+#principal {
+    width: 70%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    color: blue;
-}
-select {
     text-align: center;
-    background-color: aqua;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
 }
-label {
-    padding-left: 15%;
-}
-label:hover {
-    color: gray;
-}
-div#selecao {
-    justify-items: center;
-    width: 60%;
-    align-items: center;
-    border: solid gray 1px;
+
+#selecao {
+    margin: 0 auto;
+    max-width: 500px;
     padding: 20px;
-    margin-left: 20%;
+    border-radius: 8px;
+    background: #e9ecef;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #495057;
+}
+
+select:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+#resultado {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #e9ecef;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.1em;
 }
