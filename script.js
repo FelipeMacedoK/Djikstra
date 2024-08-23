@@ -83,8 +83,7 @@ class Grafo {
     adicionarAresta(vertice1, vertice2, peso) {
         this.listaAdjacencia[vertice1].push({ no: vertice2, peso });
         this.listaAdjacencia[vertice2].push({ no: vertice1, peso });
-        this.listaAdjacencia[vertice1].push({ no: vertice1, peso });
-        this.listaAdjacencia[vertice2].push({ no: vertice2, peso });
+
     }
 
     dijkstra(inicio, fim) {
@@ -130,46 +129,46 @@ class Grafo {
 
 // Exemplo de uso:
 const grafo = new Grafo();
-grafo.adicionarVertice("ITU");
-grafo.adicionarVertice("RSL");
-grafo.adicionarVertice("VID");
-grafo.adicionarVertice("RDO");
-grafo.adicionarVertice("RCA");
-grafo.adicionarVertice("STA");
-grafo.adicionarVertice("AUR");
-grafo.adicionarVertice("PGE");
-grafo.adicionarVertice("TAI");
-grafo.adicionarVertice("POU");
-grafo.adicionarVertice("IMB");
-grafo.adicionarVertice("CHA");
-grafo.adicionarVertice("LAU");
-grafo.adicionarVertice("SAL");
-grafo.adicionarVertice("MIR");
+grafo.adicionarVertice("Ituporanga");
+grafo.adicionarVertice("Rio do Sul");
+grafo.adicionarVertice("Vidal Ramos");
+grafo.adicionarVertice("Rio do Oeste");
+grafo.adicionarVertice("Rio do Campo");
+grafo.adicionarVertice("Santa Terezinha");
+grafo.adicionarVertice("Aurora");
+grafo.adicionarVertice("Presidente Getúlio");
+grafo.adicionarVertice("Taió");
+grafo.adicionarVertice("Pouso Redondo");
+grafo.adicionarVertice("Imbuia");
+grafo.adicionarVertice("Chapadão do Lageado");
+grafo.adicionarVertice("Laurentino");
+grafo.adicionarVertice("Salete");
+grafo.adicionarVertice("Mirim Doce");
 
-grafo.adicionarAresta("ITU", "RSL", 52);
-grafo.adicionarAresta("ITU", "AUR", 26);
-grafo.adicionarAresta("RSL", "VID", 87);
-grafo.adicionarAresta("RSL", "AUR", 42);
-grafo.adicionarAresta("RSL", "IMB", 114.4);
-grafo.adicionarAresta("RSL", "LAU", 39);
-grafo.adicionarAresta("VID", "PGE", 347.6);
-grafo.adicionarAresta("RDO", "RCA", 105);
-grafo.adicionarAresta("RDO", "PGE", 264);
-grafo.adicionarAresta("RDO", "TAI", 70);
-grafo.adicionarAresta("RCA", "STA", 25);
-grafo.adicionarAresta("RCA", "TAI", 81.4);
-grafo.adicionarAresta("STA", "TAI", 73.5);
-grafo.adicionarAresta("AUR", "IMB", 117);
-grafo.adicionarAresta("PGE", "TAI", 219);
-grafo.adicionarAresta("PGE", "CHA", 180.4);
-grafo.adicionarAresta("PGE", "SAL", 50);
-grafo.adicionarAresta("TAI", "POU", 158.4);
-grafo.adicionarAresta("TAI", "LAU", 43);
-grafo.adicionarAresta("POU", "SAL", 129);
-grafo.adicionarAresta("POU", "MIR", 51);
-grafo.adicionarAresta("CHA", "LAU", 286);
-grafo.adicionarAresta("LAU", "SAL", 62);
-grafo.adicionarAresta("SAL", "MIR", 144);
+grafo.adicionarAresta("Ituporanga", "Rio do Sul", 52);
+grafo.adicionarAresta("Ituporanga", "Aurora", 26);
+grafo.adicionarAresta("Rio do Sul", "Vidal Ramos", 87);
+grafo.adicionarAresta("Rio do Sul", "Aurora", 42);
+grafo.adicionarAresta("Rio do Sul", "Imbuia", 114.4);
+grafo.adicionarAresta("Rio do Sul", "Laurentino", 39);
+grafo.adicionarAresta("Vidal Ramos", "Presidente Getúlio", 347.6);
+grafo.adicionarAresta("Rio do Oeste", "Rio do Campo", 105);
+grafo.adicionarAresta("Rio do Oeste", "Presidente Getúlio", 264);
+grafo.adicionarAresta("Rio do Oeste", "Taió", 70);
+grafo.adicionarAresta("Rio do Campo", "Santa Terezinha", 25);
+grafo.adicionarAresta("Rio do Campo", "Taió", 81.4);
+grafo.adicionarAresta("Santa Terezinha", "Taió", 73.5);
+grafo.adicionarAresta("Aurora", "Imbuia", 117);
+grafo.adicionarAresta("Presidente Getúlio", "Taió", 219);
+grafo.adicionarAresta("Presidente Getúlio", "Chapadão do Lageado", 180.4);
+grafo.adicionarAresta("Presidente Getúlio", "Salete", 50);
+grafo.adicionarAresta("Taió", "Pouso Redondo", 158.4);
+grafo.adicionarAresta("Taió", "Laurentino", 43);
+grafo.adicionarAresta("Pouso Redondo", "Salete", 129);
+grafo.adicionarAresta("Pouso Redondo", "Mirim Doce", 51);
+grafo.adicionarAresta("Chapadão do Lageado", "Laurentino", 286);
+grafo.adicionarAresta("Laurentino", "Salete", 62);
+grafo.adicionarAresta("Salete", "Mirim Doce", 144);
 
 function menorCaminho() {
     const origem = document.getElementById("origem").value;
