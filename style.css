@@ -9,8 +9,8 @@ body {
 #principal {
     width: 70%;
     max-width: 900px;
-    margin: 50px auto;
-    padding: 30px;
+    margin: 10px auto;
+    padding: 20px;
     border-radius: 8px;
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -55,7 +55,7 @@ select:focus {
 }
 
 input[type="button"] {
-    width: 100%;
+    width: 96%;
     padding: 10px;
     font-size: 1.1em;
     color: #fff;
@@ -71,11 +71,24 @@ input[type="button"]:hover {
 }
 
 #resultado {
+    text-align: center;
     margin-top: 20px;
     padding: 20px;
+    padding-bottom: 0px;
     border-radius: 8px;
     background: #e9ecef;
     max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.1em;
+}
+
+#grafo {
+    margin-top: 20px;
+    padding: 20px;
+    padding-bottom: 0px;
+    border-radius: 8px;
+    background: #e9ecef;
+    max-width: 650px;
     margin: 0 auto;
     font-size: 1.1em;
 }

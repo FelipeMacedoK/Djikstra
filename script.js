@@ -127,7 +127,6 @@ class Grafo {
     }
 }
 
-// Exemplo de uso:
 const grafo = new Grafo();
 grafo.adicionarVertice("Ituporanga");
 grafo.adicionarVertice("Rio do Sul");
@@ -171,12 +170,19 @@ grafo.adicionarAresta("Laurentino", "Salete", 62);
 grafo.adicionarAresta("Salete", "Mirim Doce", 144);
 
 function menorCaminho() {
-    const origem = document.getElementById("origem").value;
-    const destino = document.getElementById("destino").value;
-    const resultado = grafo.dijkstra(origem, destino);
-    const caminho = resultado.caminho.join(" -> ");
-    const custo = resultado.custo;
-
-    const resultadoDiv = document.getElementById("resultado");
-    resultadoDiv.innerHTML = `<strong>Caminho mais curto:</strong> ${caminho}<br><strong>Custo total:</strong> ${custo}`;
+    try {
+        const origem = document.getElementById("origem").value;
+        const destino = document.getElementById("destino").value;
+        if (!origem || !destino) {
+            throw new Error("por favor, selecione tanto a origem quanto o destino.");
+        }
+        const resultado = grafo.dijkstra(origem, destino);
+        const caminho = resultado.caminho.join(" -> ");
+        const custo = resultado.custo;
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.innerHTML = `<strong>Caminho mais curto:</strong><br>${caminho}<br><strong>Custo total:</strong> ${custo}`;
+    } catch (error) {
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.innerHTML = `<strong>Erro:</strong> ${error.message}`;
+    }
 }
