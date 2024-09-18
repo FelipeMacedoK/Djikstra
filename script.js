@@ -18,18 +18,16 @@ class FilaDePrioridade {
 
     subirBolha() {
         let indice = this.valores.length - 1;
-        const elemento = this.valores[indice];
         while (indice > 0) {
             let indicePai = Math.floor((indice - 1) / 2);
-            let pai = this.valores[indicePai];
-            if (elemento.prioridade >= pai.prioridade) break;
-            this.valores[indicePai] = elemento;
-            this.valores[indice] = pai;
+            if (this.valores[indice].prioridade >= this.valores[indicePai].prioridade) break;
+            [this.valores[indice], this.valores[indicePai]] = [this.valores[indicePai], this.valores[indice]];
             indice = indicePai;
         }
     }
 
     desenfileirar() {
+        if (this.valores.length === 0) return null;
         const menor = this.valores[0];
         const fim = this.valores.pop();
         if (this.valores.length > 0) {
@@ -42,31 +40,19 @@ class FilaDePrioridade {
     afundar() {
         let indice = 0;
         const comprimento = this.valores.length;
-        const elemento = this.valores[0];
-
         while (true) {
+            let menorIndice = indice;
             let indiceFilhoEsquerdo = 2 * indice + 1;
             let indiceFilhoDireito = 2 * indice + 2;
-            let filhoEsquerdo, filhoDireito;
-            let troca = null;
-
-            if (indiceFilhoEsquerdo < comprimento) {
-                filhoEsquerdo = this.valores[indiceFilhoEsquerdo];
-                if (filhoEsquerdo.prioridade < elemento.prioridade) {
-                    troca = indiceFilhoEsquerdo;
-                }
-            }
-            if (indiceFilhoDireito < comprimento) {
-                filhoDireito = this.valores[indiceFilhoDireito];
-                if (filhoDireito.prioridade < (troca === null ? elemento.prioridade : filhoEsquerdo.prioridade)) {
-                    troca = indiceFilhoDireito;
-                }
-            }
-
-            if (troca === null) break;
-            this.valores[indice] = this.valores[troca];
-            this.valores[troca] = elemento;
-            indice = troca;
+            if (indiceFilhoEsquerdo < comprimento &&
+                this.valores[indiceFilhoEsquerdo].prioridade < this.valores[menorIndice].prioridade) {
+                menorIndice = indiceFilhoEsquerdo;
+            } if (indiceFilhoDireito < comprimento &&
+                this.valores[indiceFilhoDireito].prioridade < this.valores[menorIndice].prioridade) {
+                menorIndice = indiceFilhoDireito;
+            } if (menorIndice === indice) break;
+            [this.valores[indice], this.valores[menorIndice]] = [this.valores[menorIndice], this.valores[indice]];
+            indice = menorIndice;
         }
     }
 }
@@ -83,7 +69,6 @@ class Grafo {
     adicionarAresta(vertice1, vertice2, peso) {
         this.listaAdjacencia[vertice1].push({ no: vertice2, peso });
         this.listaAdjacencia[vertice2].push({ no: vertice1, peso });
-
     }
 
     dijkstra(inicio, fim) {
@@ -91,39 +76,29 @@ class Grafo {
         const distancias = {};
         const anteriores = {};
         const caminho = [];
-        let menor;
-
+        
         for (let vertice in this.listaAdjacencia) {
             distancias[vertice] = vertice === inicio ? 0 : Infinity;
-            nos.enfileirar(vertice, distancias[vertice]);
             anteriores[vertice] = null;
-        }
-
-        while (nos.valores.length) {
-            menor = nos.desenfileirar().valor;
+            nos.enfileirar(vertice, distancias[vertice]);
+        } while (nos.valores.length) {
+            const menor = nos.desenfileirar().valor;
             if (menor === fim) {
-                while (anteriores[menor]) {
-                    caminho.push(menor);
-                    menor = anteriores[menor];
+                for (let v = fim; v !== null; v = anteriores[v]) {
+                    caminho.unshift(v);
                 }
-                break;
-            }
-
-            if (menor || distancias[menor] !== Infinity) {
-                for (let vizinho of this.listaAdjacencia[menor]) {
-                    let candidato = distancias[menor] + vizinho.peso;
-                    let proximoVizinho = vizinho.no;
-
-                    if (candidato < distancias[proximoVizinho]) {
-                        distancias[proximoVizinho] = candidato;
-                        anteriores[proximoVizinho] = menor;
-                        nos.enfileirar(proximoVizinho, candidato);
-                    }
+                return { caminho, custo: distancias[fim] };
+            } if (distancias[menor] === Infinity) break;
+            for (let { no: vizinho, peso } of this.listaAdjacencia[menor]) {
+                let novaDistancia = distancias[menor] + peso;
+                if (novaDistancia < distancias[vizinho]) {
+                    distancias[vizinho] = novaDistancia;
+                    anteriores[vizinho] = menor;
+                    nos.enfileirar(vizinho, novaDistancia);
                 }
             }
         }
-
-        return { caminho: caminho.concat(menor).reverse(), custo: distancias[fim] };
+        return { caminho: [], custo: Infinity };
     }
 }
 
@@ -173,16 +148,15 @@ function menorCaminho() {
     try {
         const origem = document.getElementById("origem").value;
         const destino = document.getElementById("destino").value;
-        if (!origem || !destino) {
-            throw new Error("por favor, selecione tanto a origem quanto o destino.");
-        }
+        if (!origem || !destino) throw new Error("Por favor, selecione tanto a origem quanto o destino.");
         const resultado = grafo.dijkstra(origem, destino);
         const caminho = resultado.caminho.join(" -> ");
         const custo = resultado.custo;
         const resultadoDiv = document.getElementById("resultado");
-        resultadoDiv.innerHTML = `<strong>Caminho mais curto:</strong><br>${caminho}<br><strong>Custo total:</strong> ${custo}`;
+        resultadoDiv.innerHTML = resultado.caminho.length 
+            ? `<strong>Caminho mais curto:</strong><br>${caminho}<br><strong>Custo total:</strong> ${custo}` 
+            : `<strong>Erro:</strong> Não foi possível encontrar um caminho entre ${origem} e ${destino}.`;
     } catch (error) {
-        const resultadoDiv = document.getElementById("resultado");
-        resultadoDiv.innerHTML = `<strong>Erro:</strong> ${error.message}`;
+        document.getElementById("resultado").innerHTML = `<strong>Erro:</strong> ${error.message}`;
     }
 }
